@@ -1,0 +1,11 @@
+{
+  "description": "Saves each conversation, and the commands Claude ran, to claude-<date> and claude-<date>-files folders.",
+  "hooks": {
+    "UserPromptSubmit": [{ "hooks": [{ "type": "command", "command": "node \"${CLAUDE_PLUGIN_ROOT}/dist/hook.js\"", "async": true }] }],
+    "PostToolUse": [{ "hooks": [{ "type": "command", "command": "node \"${CLAUDE_PLUGIN_ROOT}/dist/hook.js\"", "async": true }] }],
+    "PostToolUseFailure": [{ "hooks": [{ "type": "command", "command": "node \"${CLAUDE_PLUGIN_ROOT}/dist/hook.js\"", "async": true }] }],
+    "Stop": [{ "hooks": [{ "type": "command", "command": "node \"${CLAUDE_PLUGIN_ROOT}/dist/hook.js\"", "async": true }] }],
+    "PreCompact": [{ "hooks": [{ "type": "command", "command": "node \"${CLAUDE_PLUGIN_ROOT}/dist/hook.js\"", "async": true }] }],
+    "SessionEnd": [{ "hooks": [{ "type": "command", "command": "node \"${CLAUDE_PLUGIN_ROOT}/dist/hook.js\"", "async": true }] }]
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "save-me-claude",
+  "version": "1.0.0",
+  "description": "Saves every Claude Code conversation (and the commands Claude ran) to your own folder, one folder a day.",
+  "author": {
+    "name": "buggypather"
+  },
+  "homepage": "https://github.com/buggypather/save-me-claude",
+  "repository": "https://github.com/buggypather/save-me-claude",
+  "license": "MIT",
+  "keywords": [
+    "save",
+    "transcript",
+    "backup",
+    "log"
+  ]
+}

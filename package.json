@@ -1,0 +1,43 @@
+{
+  "name": "save-me-claude",
+  "version": "1.0.0",
+  "description": "Saves every Claude Code conversation (and the commands Claude ran) to your own folder, one folder a day.",
+  "type": "module",
+  "bin": {
+    "save-me-claude": "dist/cli.js"
+  },
+  "files": [
+    "dist",
+    ".claude-plugin",
+    "hooks",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc -p .",
+    "test": "vitest run",
+    "prepare": "npm run build"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "claude",
+    "claude-code",
+    "hooks",
+    "save",
+    "transcript",
+    "backup",
+    "log"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/buggypather/save-me-claude"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "^5.7.0",
+    "vitest": "^3.2.0"
+  }
+}

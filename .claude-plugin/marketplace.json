@@ -1,0 +1,13 @@
+{
+  "name": "save-me-claude",
+  "owner": {
+    "name": "buggypather"
+  },
+  "plugins": [
+    {
+      "name": "save-me-claude",
+      "source": "./",
+      "description": "Saves every Claude Code conversation (and the commands Claude ran) to your own folder, one folder a day."
+    }
+  ]
+}
