@@ -6,7 +6,7 @@ import { appendFileSync, copyFileSync, existsSync, readFileSync, writeFileSync }
 import { basename, join } from 'node:path';
 import { actionEntry, isAction, scriptFor } from './actions.js';
 import { dayFolder, ensureDir, filesFolder, safeName, saveRoot } from './shared.js';
-import { renderTranscript } from './transcript.js';
+import { renderTranscript, requestEntry } from './transcript.js';
 /** Each session keeps the day it started in, even past midnight (kept in a small file in the root). */
 function sessionPlace(root, id, cwd) {
     const statePath = join(root, '.save-me-claude-state.json');
@@ -51,6 +51,9 @@ async function main() {
             writeFileSync(join(ensureDir(join(files, `${place.name} scripts`)), script.name), script.body);
     }
     writeFileSync(statePath, JSON.stringify(state, null, 1));
+    // Your requests: every message you send, in one list for the day (all sessions), as you send it.
+    if (input.hook_event_name === 'UserPromptSubmit' && input.prompt)
+        appendFileSync(join(day, 'requests.md'), requestEntry(input.prompt, place.name, new Date()));
     // The conversation: the full transcript, readable and raw.
     if (input.transcript_path && existsSync(input.transcript_path)) {
         const jsonl = readFileSync(input.transcript_path, 'utf8');

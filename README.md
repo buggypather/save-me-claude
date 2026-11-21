@@ -24,6 +24,11 @@ C:\Users\you\
 - A session that runs past midnight stays in the day it started.
 - The conversation file is rewritten as the session goes, so it's always complete up to the latest message.
 
+
+### Your requests
+
+Every message you send is also added, as you send it, to `requests.md` in that day's folder. It holds all your sessions in one list, with the time and session name. Slash commands show as typed (for example `/plugin install x`), and pasted pictures or files are marked. The full conversation files have your messages too, under **You**.
+
 ## Install
 
 You need [Node.js](https://nodejs.org) 18 or newer. If you installed Claude Code with npm, you already have it.

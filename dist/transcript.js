@@ -28,6 +28,22 @@ export function describeToolUse(name, input) {
         return `\`${i.file_path}\`\n\nReplaced:\n${fence(String(i.old_string ?? ''))}\nWith:\n${fence(String(i.new_string ?? ''))}`;
     return fence(JSON.stringify(input, null, 2), 'json');
 }
+/** Slash commands and other tagged text in your messages, made readable. */
+export function tidyUserText(t) {
+    const cmd = /<command-name>([\s\S]*?)<\/command-name>/.exec(t);
+    if (cmd) {
+        const args = /<command-args>([\s\S]*?)<\/command-args>/.exec(t)?.[1]?.trim();
+        return `\`${cmd[1].trim()}${args ? ' ' + args : ''}\``;
+    }
+    const out = /<local-command-stdout>([\s\S]*?)<\/local-command-stdout>/.exec(t);
+    if (out)
+        return fence(out[1].trim());
+    return t;
+}
+/** One entry for the day's requests.md. */
+export function requestEntry(prompt, session, at) {
+    return `### ${at.toLocaleTimeString()} · ${session}\n\n${tidyUserText(prompt.trim())}\n\n`;
+}
 /** The whole conversation as Markdown. */
 export function renderTranscript(jsonl, title) {
     const out = [`# ${title}`, ''];
@@ -53,7 +69,11 @@ export function renderTranscript(jsonl, title) {
         const parts = [];
         for (const b of blocks) {
             if (b.type === 'text' && b.text?.trim())
-                parts.push(b.text.trim());
+                parts.push(m.role === 'assistant' ? b.text.trim() : tidyUserText(b.text.trim()));
+            else if (b.type === 'image')
+                parts.push('_[picture attached]_');
+            else if (b.type === 'document')
+                parts.push('_[file attached]_');
             else if (b.type === 'thinking' && b.thinking?.trim())
                 parts.push(`<details><summary>Thinking</summary>\n\n${b.thinking.trim()}\n\n</details>`);
             else if (b.type === 'tool_use')

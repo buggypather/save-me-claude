@@ -37,3 +37,11 @@ describe('save-me-claude', () => {
     expect(scriptFor({ tool_name: 'Write', tool_input: {} }, 4)).toBeNull();
   });
 });
+
+import { requestEntry, tidyUserText } from '../src/transcript';
+describe('requests', () => {
+  it('lists what you asked, with slash commands readable', () => {
+    expect(tidyUserText('<command-name>/plugin</command-name><command-args>install x</command-args>')).toBe('`/plugin install x`');
+    expect(requestEntry('  fix the build ', '14-02 fm abcd1234', new Date(2026, 0, 1, 14, 2))).toMatch(/^### .* · 14-02 fm abcd1234\n\nfix the build\n\n$/);
+  });
+});
